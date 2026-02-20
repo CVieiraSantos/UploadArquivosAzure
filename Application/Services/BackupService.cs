@@ -17,11 +17,15 @@ namespace UploadArquivosAzure.Application.Services
             _azureRepository = azureRepository;
             _settings = settings;
         }
-
         public async Task ExecutarAsync()
         {
-            
-            var json = await File.ReadAllTextAsync(_settings.ConfigFilePath);
+            var path = _settings.ConfigFilePath;
+
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException($"Arquivo não encontrado: {path}");
+            }
+            var json = await File.ReadAllTextAsync(path);
 
             List<BackupConfig> configs;
 
@@ -38,13 +42,9 @@ namespace UploadArquivosAzure.Application.Services
                 }
                 catch (JsonException)
                 {
-                    // JSON inválido (mal formatado)
                     configs = new List<BackupConfig>();
-                    // aqui você pode logar o erro se quiser
                 }
             }
-            //var configs = JsonSerializer.Deserialize<List<BackupConfig>>(json)
-            //              ?? new List<BackupConfig>();
 
             foreach (var config in configs)
             {

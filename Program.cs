@@ -8,7 +8,7 @@ var services = new ServiceCollection();
 
 services.AddSingleton(new BackupSettings
 {
-    ConfigFilePath = @"D:\RotinaBackupAzure\rotinaBackupAzure.json"
+    ConfigFilePath = @"C:\Users\Carlos Vieira\Downloads\RotinaBackupAzure\rotinaBackupAzure.json"
 });
 
 services.AddScoped<IFileRepository, FileRepository>();

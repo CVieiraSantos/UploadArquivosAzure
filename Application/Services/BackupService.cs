@@ -40,7 +40,7 @@ namespace UploadArquivosAzure.Application.Services
                     configs = JsonSerializer.Deserialize<List<BackupConfig>>(json)
                               ?? new List<BackupConfig>();
                 }
-                catch (JsonException)
+                catch (JsonException e)
                 {
                     configs = new List<BackupConfig>();
                 }
